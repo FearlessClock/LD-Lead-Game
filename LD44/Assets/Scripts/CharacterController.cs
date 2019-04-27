@@ -22,6 +22,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private InputVariable input;
 
     [SerializeField] private Animator animator;
+
+    [SerializeField] private ParticlePlayer particlePlayer;
     private bool isAttacking;
 
     private int facing;
@@ -32,11 +34,14 @@ public class CharacterController : MonoBehaviour
     private Rigidbody2D rb;
 
     public UnityEvent OnLaunchWeakAttack;
+    public UnityEvent OnWeakAttackLand;
     public UnityEvent OnLaunchStrongAttack;
+    public UnityEvent OnStrongAttackLand;
     public UnityEvent OnLaunchBloodMagic;
 
     private void Awake()
     {
+        particlePlayer.Stop();
         movementSpeed.SetValue(movementSpeedBase);
         rb = GetComponent<Rigidbody2D>(); 
         weakAttackCooldownTimer = cooldownWeakAttackTime;
@@ -49,7 +54,18 @@ public class CharacterController : MonoBehaviour
         Vector3 movement = new Vector3(input.GetXAxis, 0, input.GetYAxis * yAxisMovementModifier);
         facing = CalculateFacing(movement, facing);
 
-        animator.SetFloat("Speed", Mathf.Abs(movement.x));
+        float speedX = Mathf.Abs(movement.x);
+        float speedY = Mathf.Abs(movement.z);
+        animator.SetFloat("Speed", speedX);
+        if(speedX > 0 || speedY > 0)
+        {
+            particlePlayer.Play();
+        }
+        else if(speedX <= 0 && speedY <=0)
+        {
+            particlePlayer.Stop();
+        }
+
         Vector3 projectedMovement = new Vector3(movement.x, movement.z + movement.y, movement.z);
         rb.MovePosition(this.transform.position + projectedMovement * movementSpeed * Time.fixedDeltaTime);
         this.transform.rotation = (Quaternion.Euler(0, facing, 0));
@@ -85,6 +101,7 @@ public class CharacterController : MonoBehaviour
 
     public void ThrowWeakAttack()
     {
+        bool hitLanded = false;
         GameObject[] hits = hitBoxController.Hit();
         foreach (GameObject enemy in hits)
         {
@@ -92,13 +109,19 @@ public class CharacterController : MonoBehaviour
             if (hc)
             {
                 hc.TakeDamage(attackDamage);
+                hitLanded = true;
             }
+        }
+        if (hitLanded)
+        {
+            OnWeakAttackLand?.Invoke();
         }
         weakAttackCooldownTimer = cooldownWeakAttackTime;
     }
 
     public void ThrowStrongAttack()
     {
+        bool hitLanded = false;
         GameObject[] hits = hitBoxController.Hit();
         foreach (GameObject enemy in hits)
         {
@@ -106,7 +129,12 @@ public class CharacterController : MonoBehaviour
             if (hc)
             {
                 hc.TakeDamage(attackDamage);
+                hitLanded = true;
             }
+        }
+        if (hitLanded)
+        {
+            OnWeakAttackLand?.Invoke();
         }
         strongAttackCooldownTimer = cooldownStrongAttackTime;
     }
