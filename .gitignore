@@ -562,3 +562,7 @@ crashlytics-build.properties
 
 # End of https://www.gitignore.io/api/unity,csharp,visualstudio,visualstudiocode
 
+
+LD44/Assets/EntityCache/
+
+LD44/Assets/EntityCache\.meta
