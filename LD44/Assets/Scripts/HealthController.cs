@@ -9,9 +9,11 @@ public class HealthController : MonoBehaviour
     [SerializeField] private float health;
 
     public UnityEvent OnDeath;
+    public UnityEvent OnTakeDamage;
     public void TakeDamage(float amount)
     {
         health -= amount;
+        OnTakeDamage?.Invoke();
         CheckHealth();
     }
 
