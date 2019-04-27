@@ -46,11 +46,12 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 movement = new Vector3(input.GetXAxis, input.GetYAxis * yAxisMovementModifier);
+        Vector3 movement = new Vector3(input.GetXAxis, 0, input.GetYAxis * yAxisMovementModifier);
         facing = CalculateFacing(movement, facing);
 
         animator.SetFloat("Speed", Mathf.Abs(movement.x));
-        rb.MovePosition(this.transform.position + movement * movementSpeed * Time.fixedDeltaTime);
+        Vector3 projectedMovement = new Vector3(movement.x, movement.z + movement.y, movement.z);
+        rb.MovePosition(this.transform.position + projectedMovement * movementSpeed * Time.fixedDeltaTime);
         this.transform.rotation = (Quaternion.Euler(0, facing, 0));
 
         weakAttackCooldownTimer -= Time.fixedDeltaTime;

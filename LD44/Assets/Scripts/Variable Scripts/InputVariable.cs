@@ -9,6 +9,7 @@ public class InputVariable : ScriptableObject
     public string attackWeak;
     public string attackStrong;
     public string castBloodMagic;
+    public string jump;
 
     public float GetXAxis
     {
@@ -30,6 +31,10 @@ public class InputVariable : ScriptableObject
     public bool IsCastingBloodMagic
     {
         get { return Input.GetButtonDown(castBloodMagic); }
+    }
+    public bool IsJumpPressed
+    {
+        get { return Input.GetButtonDown(jump); }
     }
     
 }

@@ -17,3 +17,4 @@ MonoBehaviour:
   attackWeak: Fire1
   attackStrong: Fire2
   castBloodMagic: Fire3
+  jump: Jump

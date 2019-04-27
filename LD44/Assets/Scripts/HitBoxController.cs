@@ -14,7 +14,7 @@ public class HitBoxController : MonoBehaviour
     {
         List<GameObject> thingsHit = new List<GameObject>();
         int nmbrOfHits = Physics2D.OverlapBoxNonAlloc(hitStartPoint.position, new Vector2(hitDistance, 0.5f), 0, hits, hitLayer);
-        Debug.Log(nmbrOfHits + " hits were had");
+
         if (nmbrOfHits > 0)
         {
             for (int i = 0; i < nmbrOfHits; i++)
