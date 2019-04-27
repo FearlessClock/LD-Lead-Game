@@ -1,0 +1,36 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HitBoxController : MonoBehaviour
+{
+    [SerializeField] private float hitDistance;
+    [SerializeField] private Transform hitStartPoint;
+    [SerializeField] private LayerMask hitLayer;
+
+    private Collider2D[] hits = new Collider2D[10];
+
+    public GameObject[] Hit()
+    {
+        List<GameObject> thingsHit = new List<GameObject>();
+        int nmbrOfHits = Physics2D.OverlapBoxNonAlloc(hitStartPoint.position, new Vector2(hitDistance, 0.5f), 0, hits, hitLayer);
+        Debug.Log(nmbrOfHits + " hits were had");
+        if (nmbrOfHits > 0)
+        {
+            for (int i = 0; i < nmbrOfHits; i++)
+            {
+                if (hits[i].gameObject.Equals(this.gameObject))
+                {
+                    continue;
+                }
+                thingsHit.Add(hits[i].gameObject);
+            }
+        }
+        return thingsHit.ToArray();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(hitStartPoint.position, new Vector3(hitDistance, 0.5f, 0));
+    }
+}
