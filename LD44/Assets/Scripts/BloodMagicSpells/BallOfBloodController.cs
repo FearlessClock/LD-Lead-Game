@@ -24,6 +24,10 @@ public class BallOfBloodController : MonoBehaviour
         {
             foreach (GameObject obj in hits)
             {
+                if (obj.CompareTag("Player"))
+                {
+                    continue;
+                }
                 HealthController healthController = obj.GetComponent<HealthController>();
                 if (healthController)
                 {
