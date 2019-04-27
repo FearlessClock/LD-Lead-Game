@@ -3,48 +3,87 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(HitBoxController), typeof(BloodMagicController))]
 public class CharacterController : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed;
+    [SerializeField] private float movementSpeedBase;
+    [SerializeField] private FloatVariable movementSpeed;
     [SerializeField] private float yAxisMovementModifier;
 
     [SerializeField] private HitBoxController hitBoxController;
+    [SerializeField] private BloodMagicController bloodMagicController;
 
-    [SerializeField] private float cooldownTime;
-
+    [SerializeField] private float cooldownWeakAttackTime;
+    [SerializeField] private float cooldownStrongAttackTime;
+    [SerializeField] private float cooldownMagicCastTime;
+    
     [SerializeField] private float attackDamage;
 
+    [SerializeField] private InputVariable input;
+
+    [SerializeField] private Animator animator;
+    private bool isAttacking;
+
     private int facing;
-    private float cooldownTimer;
+    private float weakAttackCooldownTimer;
+    private float strongAttackCooldownTimer;
+    private float CastMagicCooldownTimer;
 
     private Rigidbody2D rb;
 
-    public UnityEvent OnLaunchAttack;
+    public UnityEvent OnLaunchWeakAttack;
+    public UnityEvent OnLaunchStrongAttack;
+    public UnityEvent OnLaunchBloodMagic;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        cooldownTimer = cooldownTime;
+        movementSpeed.SetValue(movementSpeedBase);
+        rb = GetComponent<Rigidbody2D>(); 
+        weakAttackCooldownTimer = cooldownWeakAttackTime;
+        strongAttackCooldownTimer = cooldownStrongAttackTime;
+        CastMagicCooldownTimer = cooldownMagicCastTime;
     }
 
     private void FixedUpdate()
     {
-        Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical") * yAxisMovementModifier, Input.GetAxisRaw("Vertical"));
+        Vector3 movement = new Vector3(input.GetXAxis, 0, input.GetYAxis * yAxisMovementModifier);
         facing = CalculateFacing(movement, facing);
 
-        rb.MovePosition(this.transform.position + movement * movementSpeed * Time.fixedDeltaTime);
+        animator.SetFloat("Speed", Mathf.Abs(movement.x));
+        Vector3 projectedMovement = new Vector3(movement.x, movement.z + movement.y, movement.z);
+        rb.MovePosition(this.transform.position + projectedMovement * movementSpeed * Time.fixedDeltaTime);
         this.transform.rotation = (Quaternion.Euler(0, facing, 0));
 
-        cooldownTimer -= Time.fixedDeltaTime;
-        if (Input.GetButtonDown("Fire1") && cooldownTimer <= 0)
+        weakAttackCooldownTimer -= Time.fixedDeltaTime;
+        strongAttackCooldownTimer -= Time.fixedDeltaTime;
+        CastMagicCooldownTimer -= Time.fixedDeltaTime;
+
+        if (!isAttacking && input.IsAttackWeakPressed)
         {
-            OnLaunchAttack?.Invoke();
-            ThrowAttack();
+            isAttacking = true;
+            OnLaunchWeakAttack?.Invoke();
+            ThrowWeakAttack();
+        }
+        if (!isAttacking && input.IsAttackStrongPressed)
+        {
+            isAttacking = true;
+            OnLaunchStrongAttack?.Invoke();
+            ThrowStrongAttack();
+        }
+        if (!isAttacking && input.IsCastingBloodMagic)
+        {
+            isAttacking = true;
+            OnLaunchBloodMagic?.Invoke();
+            CastBloodMagic();
         }
     }
 
-    public void ThrowAttack()
+    public void OnAttackFinished()
+    {
+        isAttacking = false;
+    }
+
+    public void ThrowWeakAttack()
     {
         GameObject[] hits = hitBoxController.Hit();
         foreach (GameObject enemy in hits)
@@ -55,7 +94,27 @@ public class CharacterController : MonoBehaviour
                 hc.TakeDamage(attackDamage);
             }
         }
-        cooldownTimer = cooldownTime;
+        weakAttackCooldownTimer = cooldownWeakAttackTime;
+    }
+
+    public void ThrowStrongAttack()
+    {
+        GameObject[] hits = hitBoxController.Hit();
+        foreach (GameObject enemy in hits)
+        {
+            HealthController hc = enemy.GetComponent<HealthController>();
+            if (hc)
+            {
+                hc.TakeDamage(attackDamage);
+            }
+        }
+        strongAttackCooldownTimer = cooldownStrongAttackTime;
+    }
+
+    public void CastBloodMagic()
+    {
+        bloodMagicController.CastBloodMagic();
+        CastMagicCooldownTimer = cooldownMagicCastTime;
     }
 
     private int CalculateFacing(Vector3 movement, int oldFacing)
