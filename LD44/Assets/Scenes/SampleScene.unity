@@ -172,7 +172,12 @@ MonoBehaviour:
   movementSpeed: 7
   yAxisMovementModifier: 0.8
   hitBoxController: {fileID: 97497541}
-  cooldownTime: 0
+  cooldownTime: 1
+  OnLaunchAttack:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!50 &97497538
 Rigidbody2D:
   serializedVersion: 4

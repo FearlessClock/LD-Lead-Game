@@ -13,6 +13,8 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField] private float cooldownTime;
 
+    [SerializeField] private float attackDamage;
+
     private int facing;
     private float cooldownTimer;
 
@@ -38,17 +40,22 @@ public class CharacterController : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && cooldownTimer <= 0)
         {
             OnLaunchAttack?.Invoke();
-            GameObject[] hits = hitBoxController.Hit();
-            foreach (GameObject enemy in hits)
-            {
-                HealthController hc = enemy.GetComponent<HealthController>();
-                if (hc)
-                {
-                    hc.TakeDamage(1);
-                }
-            }
-            cooldownTimer = cooldownTime;
+            ThrowAttack();
         }
+    }
+
+    public void ThrowAttack()
+    {
+        GameObject[] hits = hitBoxController.Hit();
+        foreach (GameObject enemy in hits)
+        {
+            HealthController hc = enemy.GetComponent<HealthController>();
+            if (hc)
+            {
+                hc.TakeDamage(attackDamage);
+            }
+        }
+        cooldownTimer = cooldownTime;
     }
 
     private int CalculateFacing(Vector3 movement, int oldFacing)
