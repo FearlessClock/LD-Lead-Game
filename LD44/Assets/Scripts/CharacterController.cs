@@ -24,6 +24,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [SerializeField] private ParticlePlayer particlePlayer;
+    
     private bool isAttacking;
 
     private int facing;

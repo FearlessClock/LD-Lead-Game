@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyWaveSpawner : MonoBehaviour
 {
@@ -13,12 +14,14 @@ public class EnemyWaveSpawner : MonoBehaviour
     public float SpawnRadius = 0.0f;
     private Vector3 RandomOffset;
 
-    public int WaveNumber;
+    [SerializeField] private IntVariable WaveNumber;
     public bool IsWaveFinished;
 
     public GameObject[] Enemies;
 
     public string ShopSceneName;
+
+    public UnityEvent OnWaveFinished;
 
     void Start()
     { 
@@ -42,7 +45,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         Enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (IsWaveFinished == true && Enemies.Length == 0)
         {
-            Application.LoadLevel(ShopSceneName);
+            OnWaveFinished?.Invoke();
         }
     }
 
@@ -54,7 +57,7 @@ public class EnemyWaveSpawner : MonoBehaviour
             EnemyTimings = Waves[WaveNumber].EnemyTimings;
             EnemySpawnLocations = Waves[WaveNumber].EnemySpawnLocation;
             StartCoroutine("SpawnEnemies");
-            WaveNumber++;
+            WaveNumber.SetValue(WaveNumber + 1);
         }
     }
 

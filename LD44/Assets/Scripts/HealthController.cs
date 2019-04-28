@@ -7,19 +7,27 @@ using UnityEngine.Events;
 public class HealthController : MonoBehaviour
 {
     [SerializeField] private float health;
+    [SerializeField] private bool useStatic;
+    [SerializeField] private FloatVariable healthVar;
+    public float Health
+    {
+        get { return useStatic ? healthVar : health; }
+        set { if (useStatic) { healthVar.SetValue(value); } else { health = value; } }
+    }
 
     public UnityEvent OnDeath;
     public UnityEvent OnTakeDamage;
+
     public void TakeDamage(float amount)
     {
-        health -= amount;
+        Health -= amount;
         OnTakeDamage?.Invoke();
         CheckHealth();
     }
 
     private void CheckHealth()
     {
-        if(health <= 0)
+        if(Health <= 0)
         {
             OnDeath?.Invoke();
         }
