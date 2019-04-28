@@ -90,7 +90,8 @@ MonoBehaviour:
   SpawnRadius: 1
   WaveNumber: 0
   IsWaveFinished: 0
-  Enemys: []
+  Enemies: []
+  ShopSceneName: Shop
 --- !u!1 &1007614468388467578
 GameObject:
   m_ObjectHideFlags: 0
