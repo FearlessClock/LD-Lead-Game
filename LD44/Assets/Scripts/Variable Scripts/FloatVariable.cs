@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.Events;
 
+[System.Serializable]
 public class FloatEvent : UnityEvent<float> {}
 [CreateAssetMenu(fileName = "FloatVariable", menuName = "Variables/FloatVariable", order = 0)]
 public class FloatVariable : ScriptableObject

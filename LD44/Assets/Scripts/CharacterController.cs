@@ -18,19 +18,19 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private float cooldownMagicCastTime;
     
     [SerializeField] private FloatVariable attackDamage;
+    [SerializeField] private float strongAttackDamageMultiplier;
 
     [SerializeField] private InputVariable input;
 
     [SerializeField] private Animator animator;
 
     [SerializeField] private ParticlePlayer particlePlayer;
+
+    [SerializeField] private WeaponController weaponController;
     
     private bool isAttacking;
 
     private int facing;
-    private float weakAttackCooldownTimer;
-    private float strongAttackCooldownTimer;
-    private float CastMagicCooldownTimer;
 
     private Rigidbody2D rb;
 
@@ -44,10 +44,7 @@ public class CharacterController : MonoBehaviour
     {
         particlePlayer.Stop();
         movementSpeed.SetValue(movementSpeedBase);
-        rb = GetComponent<Rigidbody2D>(); 
-        weakAttackCooldownTimer = cooldownWeakAttackTime;
-        strongAttackCooldownTimer = cooldownStrongAttackTime;
-        CastMagicCooldownTimer = cooldownMagicCastTime;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
@@ -70,10 +67,6 @@ public class CharacterController : MonoBehaviour
         Vector3 projectedMovement = new Vector3(movement.x, movement.z + movement.y, movement.z);
         rb.MovePosition(this.transform.position + projectedMovement * movementSpeed * Time.fixedDeltaTime);
         this.transform.rotation = (Quaternion.Euler(0, facing, 0));
-
-        weakAttackCooldownTimer -= Time.fixedDeltaTime;
-        strongAttackCooldownTimer -= Time.fixedDeltaTime;
-        CastMagicCooldownTimer -= Time.fixedDeltaTime;
 
         if (!isAttacking && input.IsAttackWeakPressed)
         {
@@ -109,7 +102,8 @@ public class CharacterController : MonoBehaviour
             HealthController hc = enemy.GetComponent<HealthController>();
             if (hc)
             {
-                hc.TakeDamage(attackDamage);
+                weaponController.ApplyEffect(enemy);
+                hc.TakeDamage(weaponController.GetDamage());
                 hitLanded = true;
             }
         }
@@ -117,7 +111,6 @@ public class CharacterController : MonoBehaviour
         {
             OnWeakAttackLand?.Invoke();
         }
-        weakAttackCooldownTimer = cooldownWeakAttackTime;
     }
 
     public void ThrowStrongAttack()
@@ -129,7 +122,8 @@ public class CharacterController : MonoBehaviour
             HealthController hc = enemy.GetComponent<HealthController>();
             if (hc)
             {
-                hc.TakeDamage(attackDamage);
+                weaponController.ApplyEffect(enemy);
+                hc.TakeDamage(weaponController.GetDamage() * strongAttackDamageMultiplier);
                 hitLanded = true;
             }
         }
@@ -137,13 +131,11 @@ public class CharacterController : MonoBehaviour
         {
             OnWeakAttackLand?.Invoke();
         }
-        strongAttackCooldownTimer = cooldownStrongAttackTime;
     }
 
     public void CastBloodMagic()
     {
         bloodMagicController.CastBloodMagic();
-        CastMagicCooldownTimer = cooldownMagicCastTime;
     }
 
     private int CalculateFacing(Vector3 movement, int oldFacing)
