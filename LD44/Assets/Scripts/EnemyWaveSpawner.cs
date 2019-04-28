@@ -16,7 +16,7 @@ public class EnemyWaveSpawner : MonoBehaviour
     public int WaveNumber;
     public bool IsWaveFinished;
 
-    public GameObject[] Enemys;
+    public GameObject[] Enemies;
 
     void Start()
     { 
@@ -31,18 +31,14 @@ public class EnemyWaveSpawner : MonoBehaviour
             yield return new WaitForSeconds(EnemyTimings[i]);
             RandomOffset = new Vector3(Random.Range(-SpawnRadius, SpawnRadius), 0, Random.Range(-SpawnRadius, SpawnRadius));
             Instantiate(EnemyOrder[i], SpawnLocations[EnemySpawnLocations[i]].position + RandomOffset, Quaternion.identity);
-            if (i == EnemyOrder.Length - 1)
-            {
-                IsWaveFinished = true;
-            }
         }
-
+        IsWaveFinished = true;
     }
 
     void Update()
     {
-        Enemys = GameObject.FindGameObjectsWithTag("Enemy");
-        if (IsWaveFinished == true && Enemys.Length == 0)
+        Enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (IsWaveFinished == true && Enemies.Length == 0)
         {
             NextWave();
         }
@@ -50,13 +46,13 @@ public class EnemyWaveSpawner : MonoBehaviour
 
     public void NextWave()
     {
-        EnemyOrder = Waves[WaveNumber].EnemyOrder;
-        EnemyTimings = Waves[WaveNumber].EnemyTimings;
-        EnemySpawnLocations = Waves[WaveNumber].EnemySpawnLocation;
-        StartCoroutine("SpawnEnemies");
-        if (WaveNumber <= Waves.Length)
+        if (WaveNumber < Waves.Length)
         {
-            WaveNumber = WaveNumber + 1;
+            EnemyOrder = Waves[WaveNumber].EnemyOrder;
+            EnemyTimings = Waves[WaveNumber].EnemyTimings;
+            EnemySpawnLocations = Waves[WaveNumber].EnemySpawnLocation;
+            StartCoroutine("SpawnEnemies");
+            WaveNumber++;
         }
     }
 }

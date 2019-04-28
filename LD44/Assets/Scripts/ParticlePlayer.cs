@@ -12,6 +12,11 @@ public class ParticlePlayer : MonoBehaviour
         {
             particleSystem.Play();
         }
+        else
+        {
+            particleSystem.Stop();
+            particleSystem.Play();
+        }
     }
 
     public void Stop()

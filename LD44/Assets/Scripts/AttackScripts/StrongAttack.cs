@@ -5,6 +5,8 @@ public class StrongAttack : aAttack
 {
     public override void Attack(HitBoxController hitBoxController)
     {
+        OnAttackThrow?.Invoke();
+        bool hitLanded = false;
         GameObject[] hits = hitBoxController.Hit();
         foreach (GameObject enemy in hits)
         {
@@ -12,7 +14,12 @@ public class StrongAttack : aAttack
             if (hc)
             {
                 hc.TakeDamage(attackDamage);
+                hitLanded = true;
             }
+        }
+        if (hitLanded)
+        {
+            OnAttackLand?.Invoke();
         }
     }
 }
