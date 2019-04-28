@@ -16,7 +16,15 @@ public class ShopManager : MonoBehaviour
 	private void Awake()
 	{
 		instance = this;
+		InitShop(1, null);
 	}
+
+	/*
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Space))
+			InitShop(1, null);
+	}*/
 
 	public void InitShop(int round, ItemsController items){
 		List<Item> availableItems = new List<Item>();
@@ -46,7 +54,8 @@ public class ShopManager : MonoBehaviour
 	}
 
 	public void Display(Item item){
-		infoUI.Init(item);
+		if(item)
+			infoUI.Init(item);
 	}
 
 	public void Select(){

@@ -45,3 +45,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3290904213
+    locked: 0
+  - name: Crowd
+    uniqueID: 867536511
+    locked: 0
+  - name: Characters
+    uniqueID: 2914288243
+    locked: 0

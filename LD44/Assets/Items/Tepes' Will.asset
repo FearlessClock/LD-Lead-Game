@@ -18,7 +18,8 @@ MonoBehaviour:
     aggresser
   dropRate: 100
   requirements: []
-  shopPrefab: {fileID: 0}
+  shopPrefab: {fileID: 7091899766617173688, guid: ae5ebe6f2e4b1214a9f7aca6edd7f18a,
+    type: 3}
   damageOnWeakAttack: 0
   damageOnStrongAttack: 0
   cooldownOnWeakAttack: 0
