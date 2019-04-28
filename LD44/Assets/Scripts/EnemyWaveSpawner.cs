@@ -18,6 +18,8 @@ public class EnemyWaveSpawner : MonoBehaviour
 
     public GameObject[] Enemies;
 
+    public string ShopSceneName;
+
     void Start()
     { 
         NextWave();
@@ -40,7 +42,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         Enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (IsWaveFinished == true && Enemies.Length == 0)
         {
-            NextWave();
+            Application.LoadLevel(ShopSceneName);
         }
     }
 
@@ -54,5 +56,10 @@ public class EnemyWaveSpawner : MonoBehaviour
             StartCoroutine("SpawnEnemies");
             WaveNumber++;
         }
+    }
+
+    public void ForceNextWave()
+    {
+        NextWave();
     }
 }

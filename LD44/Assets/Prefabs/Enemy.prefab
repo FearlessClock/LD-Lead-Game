@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 3329826688912391847}
   m_Layer: 9
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -522,11 +522,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6014027526992970455}
     m_Modifications:
-    - target: {fileID: 3780216735140868454, guid: 8ab5fd98813cab0438120a484ea7e2f4,
-        type: 3}
-      propertyPath: m_Name
-      value: HurtParticle
-      objectReference: {fileID: 0}
     - target: {fileID: 3780216735140868455, guid: 8ab5fd98813cab0438120a484ea7e2f4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -581,6 +576,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3780216735140868454, guid: 8ab5fd98813cab0438120a484ea7e2f4,
+        type: 3}
+      propertyPath: m_Name
+      value: HurtParticle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ab5fd98813cab0438120a484ea7e2f4, type: 3}
