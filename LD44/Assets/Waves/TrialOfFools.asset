@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a794596b4933e2498323e97ae80766a, type: 3}
+  m_Name: TrialOfFools
+  m_EditorClassIdentifier: 
+  WaveName: Trial of Fools
+  EnemyOrder:
+  - {fileID: 5836320610791301205, guid: d75c8f356e6df464cb1a107f6359d034, type: 3}
+  - {fileID: 7100991957950070079, guid: 823f2e5abeed17947ae1ee93f1f4bcc4, type: 3}
+  - {fileID: 5836320610791301205, guid: d75c8f356e6df464cb1a107f6359d034, type: 3}
+  EnemyTimings:
+  - 0
+  - 1
+  - 2
+  EnemySpawnLocation: 000000000100000002000000

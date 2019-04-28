@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - ShopItem1
+  - ShopItem2
+  - ShopItem3
   layers:
   - Default
   - TransparentFX
