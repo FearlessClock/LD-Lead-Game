@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class ItemView : MonoBehaviour
 {
 	public Item item;
@@ -36,6 +36,7 @@ public class ItemView : MonoBehaviour
 		}
 		else
 		{
+			// TODO : Actually buy the item, IE set the weapon in the player's Weapon controller or the spells
 			ShopManager.instance.Hide();
 			Clear();
 		}
