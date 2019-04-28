@@ -1,18 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HurtEffect : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private SpriteRenderer image;
+    [SerializeField] private float hurtTime;
+    [SerializeField] private Color hurtColor;
+    private void Awake()
     {
-        
+        image = GetComponent<SpriteRenderer>();
+    }
+    public void HurtEffectCallback()
+    {
+        StartCoroutine("HurtEffectRoutine");
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator HurtEffectRoutine()
     {
-        
+        Color originalColor = image.color;
+        image.color = hurtColor;
+        yield return new WaitForSeconds(hurtTime);
+        image.color = originalColor;
     }
 }
