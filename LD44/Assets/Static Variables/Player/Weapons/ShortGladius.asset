@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: ShortGladius
   m_EditorClassIdentifier: Assembly-CSharp::ShortGladius
-  damage: 1
+  shopCost: 0
+  minRound: 0
+  description: 
+  dropRate: 0
+  requirements: []
+  shopPrefab: {fileID: 0}
+  weakDamage: 1
+  strongDamage: 2
   weaponSprite: {fileID: 21300000, guid: 15a3f4d3dd0873e478c96da12574a325, type: 3}

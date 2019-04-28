@@ -13,9 +13,17 @@ class ShortGladius : aWeapon
         // For other weapons, do things like slow the enemy, apply weird damage things etc
     }
 
-    public override float GetDamage()
+    public override float GetDamage(eAttackType attackType)
     {
         //Calculate the damage to apply when hitting
-        return damage;
+        switch (attackType)
+        {
+            case eAttackType.Strong:
+                return strongDamage;
+            case eAttackType.Weak:
+                return weakDamage;
+            default:
+                return 0;
+        }
     }
 }

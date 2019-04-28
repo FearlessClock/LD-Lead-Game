@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class BloodMagicController : MonoBehaviour
 {
-    private HealthController healthController;
+    [SerializeField] private HealthController healthController;
     private PassiveBloodMagic[] passiveBloodMagic;
     private ActiveBloodMagic activeBloodMagic;
 
     private void Awake()
     {
-        healthController  = GetComponent<HealthController>();
         passiveBloodMagic = GetComponents<PassiveBloodMagic>();
         activeBloodMagic = GetComponent<ActiveBloodMagic>();
         UsePassiveBloodMagic();

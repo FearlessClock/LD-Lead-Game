@@ -1,24 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(HitBoxController), typeof(BloodMagicController))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class CharacterController : MonoBehaviour
 {
     [SerializeField] private float movementSpeedBase;
     [SerializeField] private FloatVariable movementSpeed;
     [SerializeField] private float yAxisMovementModifier;
-
-    [SerializeField] private HitBoxController hitBoxController;
-    [SerializeField] private BloodMagicController bloodMagicController;
-
-    [SerializeField] private float cooldownWeakAttackTime;
-    [SerializeField] private float cooldownStrongAttackTime;
-    [SerializeField] private float cooldownMagicCastTime;
     
     [SerializeField] private FloatVariable attackDamage;
-    [SerializeField] private float strongAttackDamageMultiplier;
 
     [SerializeField] private InputVariable input;
 
@@ -26,7 +16,7 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField] private ParticlePlayer particlePlayer;
 
-    [SerializeField] private WeaponController weaponController;
+    [SerializeField] private ItemsController itemController;
     
     private bool isAttacking;
 
@@ -39,6 +29,11 @@ public class CharacterController : MonoBehaviour
     public UnityEvent OnLaunchStrongAttack;
     public UnityEvent OnStrongAttackLand;
     public UnityEvent OnLaunchBloodMagic;
+
+    public void SetItemController(ItemsController ic)
+    {
+        itemController = ic;
+    }
 
     private void Awake()
     {
@@ -68,23 +63,27 @@ public class CharacterController : MonoBehaviour
         rb.MovePosition(this.transform.position + projectedMovement * movementSpeed * Time.fixedDeltaTime);
         this.transform.rotation = (Quaternion.Euler(0, facing, 0));
 
-        if (!isAttacking && input.IsAttackWeakPressed)
+        if (!isAttacking)
         {
             isAttacking = true;
-            OnLaunchWeakAttack?.Invoke();
-            ThrowWeakAttack();
-        }
-        if (!isAttacking && input.IsAttackStrongPressed)
-        {
-            isAttacking = true;
-            OnLaunchStrongAttack?.Invoke();
-            ThrowStrongAttack();
-        }
-        if (!isAttacking && input.IsCastingBloodMagic)
-        {
-            isAttacking = true;
-            OnLaunchBloodMagic?.Invoke();
-            CastBloodMagic();
+            if (input.IsAttackWeakPressed)
+            {
+                OnLaunchWeakAttack?.Invoke();
+                ThrowWeakAttack();
+            }else if (input.IsAttackStrongPressed)
+            {
+                OnLaunchStrongAttack?.Invoke();
+                ThrowStrongAttack();
+            }
+            else if (input.IsCastingBloodMagic)
+            {
+                OnLaunchBloodMagic?.Invoke();
+                CastBloodMagic();
+            }
+            else
+            {
+                isAttacking = false;
+            }
         }
     }
 
@@ -95,19 +94,8 @@ public class CharacterController : MonoBehaviour
 
     public void ThrowWeakAttack()
     {
-        bool hitLanded = false;
-        GameObject[] hits = hitBoxController.Hit();
-        foreach (GameObject enemy in hits)
-        {
-            HealthController hc = enemy.GetComponent<HealthController>();
-            if (hc)
-            {
-                weaponController.ApplyEffect(enemy);
-                hc.TakeDamage(weaponController.GetDamage());
-                hitLanded = true;
-            }
-        }
-        if (hitLanded)
+        bool landed = itemController.ThrowWeakAttack();
+        if (landed)
         {
             OnWeakAttackLand?.Invoke();
         }
@@ -115,27 +103,16 @@ public class CharacterController : MonoBehaviour
 
     public void ThrowStrongAttack()
     {
-        bool hitLanded = false;
-        GameObject[] hits = hitBoxController.Hit();
-        foreach (GameObject enemy in hits)
+        bool landed = itemController.ThrowStrongAttack();
+        if (landed)
         {
-            HealthController hc = enemy.GetComponent<HealthController>();
-            if (hc)
-            {
-                weaponController.ApplyEffect(enemy);
-                hc.TakeDamage(weaponController.GetDamage() * strongAttackDamageMultiplier);
-                hitLanded = true;
-            }
-        }
-        if (hitLanded)
-        {
-            OnWeakAttackLand?.Invoke();
+            OnStrongAttackLand?.Invoke();
         }
     }
 
     public void CastBloodMagic()
     {
-        bloodMagicController.CastBloodMagic();
+        itemController.CastBloodMagic();
     }
 
     private int CalculateFacing(Vector3 movement, int oldFacing)
