@@ -17,7 +17,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private float cooldownStrongAttackTime;
     [SerializeField] private float cooldownMagicCastTime;
     
-    [SerializeField] private float attackDamage;
+    [SerializeField] private FloatVariable attackDamage;
 
     [SerializeField] private InputVariable input;
 

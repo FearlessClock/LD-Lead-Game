@@ -275,6 +275,8 @@ MonoBehaviour:
   floatResetValues:
   - value: {fileID: 11400000, guid: 4e631db2f1a0071439f855e4a195c068, type: 2}
     startingValue: 10
+  - value: {fileID: 11400000, guid: bf4ec8f5ec6da2a4d965ac86983ecc71, type: 2}
+    startingValue: 1
   intResetValues:
   - value: {fileID: 11400000, guid: 6d8729578010c6a43a16262c8aa4562b, type: 2}
     startingValue: 0
@@ -754,6 +756,12 @@ PrefabInstance:
       propertyPath: OnLaunchWeakAttack.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1930206567}
+    - target: {fileID: 3661251481201312773, guid: 8c68f04fee9c6e040a32a2a7384f6ed2,
+        type: 3}
+      propertyPath: attackDamage
+      value: 
+      objectReference: {fileID: 11400000, guid: bf4ec8f5ec6da2a4d965ac86983ecc71,
+        type: 2}
     - target: {fileID: 3661251481201312768, guid: 8c68f04fee9c6e040a32a2a7384f6ed2,
         type: 3}
       propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Target
