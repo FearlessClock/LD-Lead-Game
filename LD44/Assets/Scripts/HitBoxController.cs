@@ -5,10 +5,24 @@ using UnityEngine;
 public class HitBoxController : MonoBehaviour
 {
     [SerializeField] private float hitDistance;
+    [SerializeField] private bool useStatic;
+    [SerializeField] private FloatVariable hitDistanceVar;
     [SerializeField] private Transform hitStartPoint;
     [SerializeField] private LayerMask hitLayer;
 
     private Collider2D[] hits = new Collider2D[10];
+
+    public float GetHitDistance()
+    {
+        if (useStatic)
+        {
+            return hitDistanceVar;
+        }
+        else
+        {
+            return hitDistance;
+        }
+    }
 
     public GameObject[] Hit()
     {

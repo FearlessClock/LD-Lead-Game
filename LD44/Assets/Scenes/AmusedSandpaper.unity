@@ -1235,6 +1235,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 11.715637
       objectReference: {fileID: 0}
+    - target: {fileID: 903317071978674798, guid: 8c68f04fee9c6e040a32a2a7384f6ed2,
+        type: 3}
+      propertyPath: useStatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 903317071978674798, guid: 8c68f04fee9c6e040a32a2a7384f6ed2,
+        type: 3}
+      propertyPath: hitDistanceVar
+      value: 
+      objectReference: {fileID: 11400000, guid: e56da1b30818b9347b7b11ca5acb53f0,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c68f04fee9c6e040a32a2a7384f6ed2, type: 3}
 --- !u!1001 &6014027528003331983
