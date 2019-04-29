@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: ShortGladius
-  m_EditorClassIdentifier: Assembly-CSharp::ShortGladius
+  m_Script: {fileID: 11500000, guid: f14920f9f24091a4e8bc368fa0ebda6e, type: 3}
+  m_Name: ShortGaldius
+  m_EditorClassIdentifier: 
   shopCost: 0
   minRound: 0
   description: 

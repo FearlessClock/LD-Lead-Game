@@ -19,9 +19,8 @@ public class EnemyWaveSpawner : MonoBehaviour
 
     public GameObject[] Enemies;
 
-    public string ShopSceneName;
-
     public UnityEvent OnWaveFinished;
+    public UnityEvent OnRoundsFinished;
 
     void Start()
     { 
@@ -45,7 +44,14 @@ public class EnemyWaveSpawner : MonoBehaviour
         Enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (IsWaveFinished == true && Enemies.Length == 0)
         {
-            OnWaveFinished?.Invoke();
+            if (WaveNumber >= Waves.Length)
+            {
+                OnRoundsFinished?.Invoke();
+            }
+            else
+            {
+                OnWaveFinished?.Invoke();
+            }
         }
     }
 

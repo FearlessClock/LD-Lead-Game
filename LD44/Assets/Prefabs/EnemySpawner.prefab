@@ -78,7 +78,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Waves:
-  - {fileID: 11400000, guid: d8b471863f38e674aa95aa2e981ea716, type: 2}
+  - {fileID: 11400000, guid: 730d2a17b105b754fa3203ff486d7903, type: 2}
+  - {fileID: 11400000, guid: 730d2a17b105b754fa3203ff486d7903, type: 2}
   EnemyOrder: []
   EnemyTimings: []
   EnemySpawnLocations: 
@@ -88,10 +89,41 @@ MonoBehaviour:
   - {fileID: 1007614468388467579}
   - {fileID: 1007614467735293682}
   SpawnRadius: 1
-  WaveNumber: 0
+  WaveNumber: {fileID: 11400000, guid: 6d8729578010c6a43a16262c8aa4562b, type: 2}
   IsWaveFinished: 0
   Enemies: []
-  ShopSceneName: Shop
+  OnWaveFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: OpenGate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnRoundsFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: GoToScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1007614468388467578
 GameObject:
   m_ObjectHideFlags: 0
