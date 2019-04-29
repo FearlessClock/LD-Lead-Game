@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Short Gladius", menuName = "Weapons/Short Gladius", order = 0)]
-class ShortGladius : aWeapon
+[CreateAssetMenu(fileName = "New Great Maul", menuName = "Weapons/Great Maul", order = 0)]
+class GreatMaul : aWeapon
 {
     public override void ApplyAbility(GameObject target)
     {
@@ -19,10 +19,10 @@ class ShortGladius : aWeapon
         switch (attackType)
         {
             case eAttackType.Strong:
-                strongDamage = 2;
+                strongDamage = 3;
                 return strongDamage;
             case eAttackType.Weak:
-                weakDamage = 1;
+                weakDamage = 2;
                 return weakDamage;
             default:
                 return 0;

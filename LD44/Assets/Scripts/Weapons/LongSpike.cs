@@ -5,12 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Short Gladius", menuName = "Weapons/Short Gladius", order = 0)]
-class ShortGladius : aWeapon
+[CreateAssetMenu(fileName = "New Long Spike", menuName = "Weapons/Long Spike", order = 0)]
+class LongSpike : aWeapon
 {
+    [SerializeField] private FloatVariable PlayerRange;
+    public float PlusRange;
+    private bool HasAddedRange;
+
     public override void ApplyAbility(GameObject target)
     {
         // For other weapons, do things like slow the enemy, apply weird damage things etc
+        if (HasAddedRange != true)
+        {
+            PlayerRange.SetValue(PlayerRange + PlusRange);
+        }
     }
 
     public override float GetDamage(eAttackType attackType)
