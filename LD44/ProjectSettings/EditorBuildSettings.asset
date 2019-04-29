@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Shop.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Scenes/Arena.unity
     guid: cfd64a59523b86a4eb6847db7c0ca43d
   - enabled: 1
@@ -17,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 7c76c950670c07c43b2865891300e39d
+  - enabled: 1
+    path: Assets/Scenes/AmusedSandpaper.unity
+    guid: 4fef449d8e1d468459973296b04c7b31
+  - enabled: 1
+    path: Assets/Scenes/Shop.unity
+    guid: 7949697eb9fe3a54984084e5204f179b
   m_configObjects: {}
