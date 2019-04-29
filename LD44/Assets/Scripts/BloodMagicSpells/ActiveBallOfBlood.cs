@@ -6,6 +6,16 @@ public class ActiveBallOfBlood : MonoBehaviour, ActiveBloodMagic
     [SerializeField] private float bloodCost;
     [SerializeField] private GameObjectPool pool;
 
+    public void AddComponent(GameObject obj)
+    {
+        obj.AddComponent<ActiveBallOfBlood>();
+    }
+
+    public void DestroyComponent()
+    {
+        Destroy(this);
+    }
+
     void ActiveBloodMagic.CastMagic()
     {
         GameObject ball = pool.Get();

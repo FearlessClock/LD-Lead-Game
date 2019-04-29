@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    [SerializeField] private aWeapon weapon;
+    public aWeapon weapon;
     [SerializeField] private new SpriteRenderer renderer;
 
     [SerializeField] private HitBoxController hitBoxController;

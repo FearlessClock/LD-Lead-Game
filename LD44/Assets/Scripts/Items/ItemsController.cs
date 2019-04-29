@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,5 +28,20 @@ public class ItemsController : MonoBehaviour
     public void CastBloodMagic()
     {
         bloodMagicController.CastBloodMagic();
+    }
+
+    public void SetWeapon(aWeapon weapon)
+    {
+        weaponController.weapon = weapon;
+    }
+
+    public void SetActiveSpell(ActiveBloodMagic item)
+    {
+        bloodMagicController.SetActiveMagic(item);
+    }
+
+    public void SetPassiveSpell(PassiveBloodMagic item)
+    {
+        bloodMagicController.SetPassiveMagic(item);
     }
 }
