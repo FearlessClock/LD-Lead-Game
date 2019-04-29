@@ -10,11 +10,11 @@ public class HurtEffect : MonoBehaviour
     [SerializeField] private Color hurtColor;
     private void Awake()
     {
-        image = GetComponent<SpriteRenderer>();
+        //image = GetComponent<SpriteRenderer>();
     }
     public void HurtEffectCallback()
     {
-        StartCoroutine("HurtEffectRoutine");
+        //StartCoroutine("HurtEffectRoutine");
     }
 
     public IEnumerator HurtEffectRoutine()

@@ -33,11 +33,11 @@ public class EnemyMovement : MonoBehaviour
     {
         if (movement.x < 0)
         {
-            return 180;
+            return 0;
         }
         else if (movement.x > 0)
         {
-            return 0;
+            return 180;
         }
         return oldFacing;
     }
