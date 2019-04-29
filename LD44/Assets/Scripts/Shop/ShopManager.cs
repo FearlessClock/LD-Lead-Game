@@ -13,11 +13,15 @@ public class ShopManager : MonoBehaviour
 
 	public Item[] itemsInShop;
 
+    public HealthController playerHealth;
+
 	private void Awake()
 	{
 		instance = this;
-		InitShop(1, null);
-	}
+		InitShop(1, FindObjectOfType<ItemsController>());
+        playerHealth = FindObjectOfType<HealthController>();
+
+    }
 
 	/*
 	private void Update()
@@ -26,7 +30,7 @@ public class ShopManager : MonoBehaviour
 			InitShop(1, null);
 	}*/
 
-	public void InitShop(int round, ItemsController items){
+	public void InitShop(int round, ItemsController itemsController){
 		List<Item> availableItems = new List<Item>();
 
 		//TODO : Fill the list with the appropriate items
@@ -37,13 +41,13 @@ public class ShopManager : MonoBehaviour
 		{
 			// TODO : Select items depending on drop rate as well as type
 			// But for now just take the first ones
-			InitSlot(i, availableItems[0]);
+			InitSlot(i, availableItems[0], itemsController);
 			availableItems.RemoveAt(0);
 		}
 	}
 
-	public void InitSlot(int slotID, Item item){
-		itemsSlots[slotID].Init(item);
+	public void InitSlot(int slotID, Item item, ItemsController itemController){
+		itemsSlots[slotID].Init(item, itemController);
 	}
 
 	public void ClearShop(){

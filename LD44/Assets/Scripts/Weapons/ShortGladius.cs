@@ -8,6 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Short Gladius", menuName = "Weapons/Short Gladius", order = 0)]
 class ShortGladius : aWeapon
 {
+    private FloatVariable playerHealth;
     public override void ApplyAbility(GameObject target)
     {
         // For other weapons, do things like slow the enemy, apply weird damage things etc

@@ -8,10 +8,12 @@ public class ItemView : MonoBehaviour
 	public Item item;
 	public GameObject graphics;
 	public bool Selected = false;
+    private ItemsController itemsController;
 
-	public void Init(Item item)
+	public void Init(Item item, ItemsController itemController)
 	{
 		this.item = item;
+        this.itemsController = itemController;
 		graphics = Instantiate(item.shopPrefab, transform);
 	}
 
@@ -38,7 +40,21 @@ public class ItemView : MonoBehaviour
 		{
 			// TODO : Actually buy the item, IE set the weapon in the player's Weapon controller or the spells
 			ShopManager.instance.Hide();
-			Clear();
+            if(item.itemType == eItemType.Weapon)
+            {
+                itemsController.SetWeapon((aWeapon)item);
+            }
+            else if(item.itemType == eItemType.ActiveSpell)
+            {
+                itemsController.SetActiveSpell((ActiveBloodMagic)item);
+            }
+            else if(item.itemType == eItemType.PassiveSpell)
+            {
+                itemsController.SetPassiveSpell((PassiveBloodMagic)item);
+            }
+
+            ShopManager.instance.playerHealth.TakeDamage(item.shopCost);
+            Clear();
 		}
 	}
 
