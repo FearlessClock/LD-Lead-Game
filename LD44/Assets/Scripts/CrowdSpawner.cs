@@ -14,6 +14,7 @@ public class CrowdSpawner : MonoBehaviour
         List<Transform> positions = new List<Transform>();
         positions.AddRange(spawnPositions);
         nmbrOfCrowds = Random.Range(nmbrOfCrowds / 2, nmbrOfCrowds);
+		Transform player = FindObjectOfType<SoundEffectPlayer>().transform;
         for (int i = 0; i < nmbrOfCrowds; i++)
         {
             if(positions.Count == 0)
@@ -26,6 +27,7 @@ public class CrowdSpawner : MonoBehaviour
 
             GameObject obj = Instantiate<GameObject>(crowdPeople[Random.Range(0, crowdPeople.Length)], position);
             crowdManager.OnCheer.AddListener(obj.GetComponent<CrowdController>().Cheer);
+			obj.GetComponentInChildren<EyesManager>().SetTarget(player);
         }
     }
 }
