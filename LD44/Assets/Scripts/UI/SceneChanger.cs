@@ -18,4 +18,8 @@ public class SceneChanger : MonoBehaviour
     {
         SceneManager.UnloadSceneAsync(name, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
     }
+
+	public void Quit(){
+		Application.Quit();
+	}
 }
