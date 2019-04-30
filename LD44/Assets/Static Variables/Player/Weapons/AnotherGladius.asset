@@ -22,4 +22,5 @@ MonoBehaviour:
     type: 3}
   weakDamage: 1
   strongDamage: 0
-  weaponSprite: {fileID: 21300000, guid: 15a3f4d3dd0873e478c96da12574a325, type: 3}
+  weaponSprite: {fileID: 1098179606456428539, guid: 37afed7d25f322f44ae819f84f28aafd,
+    type: 3}

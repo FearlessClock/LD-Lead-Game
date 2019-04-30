@@ -17,7 +17,10 @@ MonoBehaviour:
   description: 
   dropRate: 0
   requirements: []
-  shopPrefab: {fileID: 0}
+  itemType: 0
+  shopPrefab: {fileID: 7091899766617173688, guid: ae5ebe6f2e4b1214a9f7aca6edd7f18a,
+    type: 3}
   weakDamage: 1
   strongDamage: 2
-  weaponSprite: {fileID: 21300000, guid: 15a3f4d3dd0873e478c96da12574a325, type: 3}
+  weaponSprite: {fileID: -5557420877203330147, guid: 37afed7d25f322f44ae819f84f28aafd,
+    type: 3}

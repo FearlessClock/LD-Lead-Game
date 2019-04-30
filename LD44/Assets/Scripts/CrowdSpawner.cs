@@ -13,7 +13,7 @@ public class CrowdSpawner : MonoBehaviour
     {
         List<Transform> positions = new List<Transform>();
         positions.AddRange(spawnPositions);
-        nmbrOfCrowds = Random.Range(nmbrOfCrowds / 2, nmbrOfCrowds);
+        //nmbrOfCrowds = Random.Range(nmbrOfCrowds / 2, nmbrOfCrowds);
 		Transform player = FindObjectOfType<SoundEffectPlayer>().transform;
         for (int i = 0; i < nmbrOfCrowds; i++)
         {
